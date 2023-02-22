@@ -81,7 +81,7 @@ router.post('/api/science-based', urlEncoded, async (req, res) => {
                     [
                         level,
                         branch,
-                        student_link,
+                        student_link.link,
                         prefix,
                         student_name,
                         student_lastname,
@@ -132,7 +132,6 @@ router.post('/api/science-based', urlEncoded, async (req, res) => {
             error: err,
         });
     }
-    
 });
 
 module.exports = router;
@@ -151,9 +150,8 @@ async function uploadBase64(base64){
         }
 
         await request(options, async function (error, response, body) {
-            if(await error){
-                console.log(error);
-                return resolve(undefined);
+            if(error){
+                resolve(error);
             }
             resolve(await response.body);
         });
