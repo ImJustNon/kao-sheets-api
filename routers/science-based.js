@@ -60,7 +60,7 @@ router.post('/api/science-based', urlEncoded, async (req, res) => {
 
 
     let student_link = await uploadBase64(student_image);
-
+    let essay_link = await uploadBase64(essay_image);
     
     const auth = new google.auth.GoogleAuth({
         keyFile: "./keys/credentials.json",
@@ -115,16 +115,13 @@ router.post('/api/science-based', urlEncoded, async (req, res) => {
                         mother_name,
                         mother_lastname,
                         mother_phone_number,
-                        // essay_image,
+                        essay_link.link,
                     ]
                 ],
             },
         }); 
 
-        res.json({
-            status: "SUCCESS",
-            error: null,
-        });
+        res.redirect('/success');
     }
     catch (err) {
         return res.json({

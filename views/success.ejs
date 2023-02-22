@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Success</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Prompt&family=Sarabun&display=swap');
+        * {
+            font-family: 'Prompt', sans-serif;
+        }
+        body {
+            padding: 0;
+            margin: 0;
+            background: url(/assets/bg.jpg)no-repeat center center fixed;
+            background-size: cover;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        let timerInterval
+        Swal.fire({
+        icon: 'success',
+        title: 'ส่งเเบบฟอร์มการสมัครเรียบร้อย ;)',
+        html: 'จะพากลับไปในอีก',
+        timer: 5000,
+        timerProgressBar: true,
+        didOpen: () => {
+            Swal.showLoading()
+            const b = Swal.getHtmlContainer().querySelector('b')
+            timerInterval = setInterval(() => {
+            b.textContent = Swal.getTimerLeft()
+            }, 100)
+        },
+        willClose: () => {
+            clearInterval(timerInterval)
+        }
+        }).then((result) => {
+            window.history.back();
+        })
+    </script>
+</body>
+</html>
