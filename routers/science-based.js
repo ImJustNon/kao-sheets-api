@@ -151,6 +151,7 @@ async function uploadBase64(base64){
 
         await request(options, function (error, response, body) {
             if(error){
+                console.log(error);
                 return resolve(undefined);
             }
             resolve(response.body);
