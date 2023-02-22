@@ -34,7 +34,7 @@
     <li>จังหวัด = school_province</li>
     <li>รหัสไปรษณีย์ = school_zip_code</li>
     <li>เกรดเฉลี่ย = GPA</li>
-    <li>ประเภทของโรงเรียนเดิม = school_type<li>
+    <li>ประเภทของโรงเรียนเดิม = school_type</li>
     <li>จบการศึกษาระดับ = graduated_level</li>
     <li>ชื่อบิดา = father_name</li>
     <li>นามสกุล = father_lastname</li>

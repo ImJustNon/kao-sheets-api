@@ -3,6 +3,7 @@
 const express = require('express');
 const router = express.Router();
 
+const request = require('request');
 const bodyParser = require('body-parser');
 const urlEncoded = bodyParser.urlencoded({
     limit: '50mb',
@@ -10,6 +11,7 @@ const urlEncoded = bodyParser.urlencoded({
 });
 
 const config = require("../configs/config.js");
+
 
 const { google } = require("googleapis");
 
@@ -55,6 +57,10 @@ router.post('/api/science-based', urlEncoded, async (req, res) => {
         mother_phone_number,
         essay_image,
     } = await req.body ?? {};
+
+
+    console.log(await uploadBase64(student_image));
+
 
     const auth = new google.auth.GoogleAuth({
         keyFile: "./keys/credentials.json",
@@ -109,7 +115,7 @@ router.post('/api/science-based', urlEncoded, async (req, res) => {
                         mother_name,
                         mother_lastname,
                         mother_phone_number,
-                        essay_image,
+                        // essay_image,
                     ]
                 ],
             },
@@ -129,3 +135,25 @@ router.post('/api/science-based', urlEncoded, async (req, res) => {
 });
 
 module.exports = router;
+
+
+
+async function uploadBase64(base64){
+    return new Promise(async(resolve, reject) =>{
+        const options = {
+            uri: 'http://45.141.26.136:8800/api/upload-image',
+            method: 'POST',
+            json: {
+            "file": `${base64}`,
+            "originalFileName": `kaolnwza.png`
+            }
+        }
+
+        await request(options, function (error, response, body) {
+            if(error){
+                return resolve(undefined);
+            }
+            resolve(response.body);
+        });
+    });
+}
