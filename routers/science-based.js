@@ -59,9 +59,9 @@ router.post('/api/science-based', urlEncoded, async (req, res) => {
     } = await req.body ?? {};
 
 
-    console.log(await uploadBase64(student_image));
+    res.json(await uploadBase64(student_image));
 
-
+    /*
     const auth = new google.auth.GoogleAuth({
         keyFile: "./keys/credentials.json",
         scopes: "https://www.googleapis.com/auth/spreadsheets",
@@ -132,6 +132,7 @@ router.post('/api/science-based', urlEncoded, async (req, res) => {
             error: err,
         });
     }
+    */
 });
 
 module.exports = router;
