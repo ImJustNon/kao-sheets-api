@@ -150,12 +150,12 @@ async function uploadBase64(base64){
             }
         }
 
-        await request(options, function (error, response, body) {
-            if(error){
+        await request(options, async function (error, response, body) {
+            if(await error){
                 console.log(error);
                 return resolve(undefined);
             }
-            resolve(response.body.link);
+            resolve(await response.body);
         });
     });
 }
