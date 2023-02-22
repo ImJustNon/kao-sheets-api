@@ -3,6 +3,7 @@
 const express = require('express');
 const router = express.Router();
 
+const request = require('request');
 const bodyParser = require('body-parser');
 const urlEncoded = bodyParser.urlencoded({
     limit: '50mb',
@@ -55,6 +56,8 @@ router.post('/api/contribution', urlEncoded, async (req, res) => {
         mother_phone_number,
     } = await req.body ?? {};
 
+    let student_link = await uploadBase64(student_image);
+
     const auth = new google.auth.GoogleAuth({
         keyFile: "./keys/credentials.json",
         scopes: "https://www.googleapis.com/auth/spreadsheets",
@@ -74,7 +77,7 @@ router.post('/api/contribution', urlEncoded, async (req, res) => {
                     [
                         level,
                         branch,
-                        student_image,
+                        student_link.link,
                         prefix,
                         student_name,
                         student_lastname,
@@ -113,10 +116,7 @@ router.post('/api/contribution', urlEncoded, async (req, res) => {
             },
         }); 
 
-        res.json({
-            status: "SUCCESS",
-            error: null,
-        });
+        res.redirect('/success');
     }
     catch (err) {
         return res.json({
@@ -127,3 +127,24 @@ router.post('/api/contribution', urlEncoded, async (req, res) => {
 });
 
 module.exports = router;
+
+
+async function uploadBase64(base64){
+    return new Promise(async(resolve, reject) =>{
+        const options = {
+            uri: `${config.uploadServer}/api/upload-image`,
+            method: 'POST',
+            json: {
+            "file": `${base64}`,
+            "originalFileName": `kaolnwza.png`
+            }
+        }
+
+        await request(options, async function (error, response, body) {
+            if(error){
+                resolve(error);
+            }
+            resolve(await response.body);
+        });
+    });
+}
