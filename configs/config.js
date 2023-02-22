@@ -9,4 +9,5 @@ module.exports = {
         contribution: '15I4axUhn-Mr9ExLetIIYWbDd3eaGnR5SHYqBozKv7sY',
         bilateral: '1rOZQk8uySnTvqNEI1n31YZye_j-0UMmZLbnyZ_4k8qM',
     },
+    uploadServer: "http://45.141.26.136:8800",
 }

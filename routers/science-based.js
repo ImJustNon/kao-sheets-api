@@ -138,7 +138,7 @@ module.exports = router;
 async function uploadBase64(base64){
     return new Promise(async(resolve, reject) =>{
         const options = {
-            uri: 'http://45.141.26.136:8800/api/upload-image',
+            uri: `${config.uploadServer}/api/upload-image`,
             method: 'POST',
             json: {
             "file": `${base64}`,
